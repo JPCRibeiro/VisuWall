@@ -29,7 +29,7 @@ export async function UserNav() {
   const initial = username && username[0].toUpperCase();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
@@ -47,11 +47,13 @@ export async function UserNav() {
         align="end"
         className="w-48 bg-zinc-900 border-zinc-800"
       >
+        {/*
         <DropdownMenuItem className="text-zinc-400 focus:bg-zinc-800 focus:text-white">
           <UserIcon className="w-4 h-4 mr-2" />
           Perfil
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-zinc-800" />
+        */}
         <form action={signOut}>
           <button type="submit" className="w-full">
             <DropdownMenuItem className="text-red-400 focus:bg-zinc-800 focus:text-red-400">

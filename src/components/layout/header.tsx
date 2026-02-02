@@ -14,20 +14,19 @@ export default function Header() {
             <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
-            <span className="text-[28px] text-white hidden sm:block select-none font-fascinate">
+            <span className="text-white text-[22px] md:text-[28px] select-none font-fascinate">
               VisuWall
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-1">
-            
             <NavItems />
           </div>
-          <div> 
+          <div className="gap-3 flex items-center"> 
             <Suspense fallback={<div className="w-10 h-10 rounded-full bg-zinc-800 animate-pulse" />}>
               <UserNav />
             </Suspense>
+            <Sidebar/>
           </div>
-          <Sidebar/>
         </div>
       </div>
     </header>

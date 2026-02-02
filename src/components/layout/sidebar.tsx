@@ -14,7 +14,7 @@ import Link from "next/link";
 export default function Sidebar() {
   return (
     <Drawer direction="right">
-      <DrawerTrigger asChild className="cursor-pointer">
+      <DrawerTrigger asChild className="cursor-pointer md:hidden flex">
         <Menu className="w-6 h-6 text-white" />
       </DrawerTrigger>
       <DrawerContent>
