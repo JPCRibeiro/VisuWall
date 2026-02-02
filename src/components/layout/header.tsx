@@ -3,6 +3,7 @@ import { Sparkles } from "lucide-react";
 import NavItems from "./navItems";
 import { UserNav } from "./userNav";
 import { Suspense } from "react";
+import Sidebar from "./sidebar";
 
 export default function Header() {
   return (
@@ -18,13 +19,15 @@ export default function Header() {
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-1">
+            
             <NavItems />
           </div>
-          <div className="outline-none"> 
+          <div> 
             <Suspense fallback={<div className="w-10 h-10 rounded-full bg-zinc-800 animate-pulse" />}>
               <UserNav />
             </Suspense>
           </div>
+          <Sidebar/>
         </div>
       </div>
     </header>
