@@ -38,7 +38,7 @@ export async function UserNav() {
           <div className="w-7 h-7 rounded-full bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-1">
             <span className="text-white text-xs font-medium">{initial}</span>
           </div>
-          <span className="text-white text-sm hidden sm:block max-w-25 truncate">
+          <span className="text-white text-sm max-w-25 truncate">
             {username}
           </span>
         </Button>

@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0ae0] backdrop-blur-[6px] border-b border-zinc-900 shadow-[inset_0_0_0_0px_rgba(31,31,31,.66),0_0_10px_rgba(0,0,0,.75),0_0_10px_rgba(0,0,0,.75)]">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0ae0] backdrop-blur-[6px] border-b border-zinc-900 shadow-[inset_0_0_0_0px_rgba(31,31,31,.66),0_0_0px_rgba(0,0,0,.75),0_0_2px_rgba(0,0,0,.75)]">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">

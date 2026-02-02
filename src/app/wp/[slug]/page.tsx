@@ -25,14 +25,13 @@ async function WallpaperDetails({ params }: { params: Promise<{ slug: string }> 
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
       {/* Coluna da Imagem (Ocupa 2/3 no desktop) */}
       <div className="lg:col-span-2 space-y-4">
-        <div className="relative aspect-[2/3] md:aspect-16/10 rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800">
+        <div className="relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800">
           <Image
             src={wallpaper.image_url}
             alt={`Wallpaper ${wallpaper.category}`}
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
+            width={wallpaper.width}
+            height={wallpaper.height}
+            quality={100}
           />
         </div>
       </div>
@@ -101,8 +100,8 @@ interface PageProps {
 export default function WallpaperPage({ params }: PageProps) {
   return (
     <div className="bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <Link href="/" className="flex items-center text-zinc-400 hover:text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <Link href="/" className="flex items-center text-zinc-400 hover:text-white w-fit">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Voltar
         </Link>

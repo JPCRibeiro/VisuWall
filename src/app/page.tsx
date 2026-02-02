@@ -17,8 +17,7 @@ async function WallpaperList() {
               src={wp.image_url}
               alt="Wallpaper"
               fill
-              loading="lazy" 
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              quality={100}
               className="object-cover transition-transform duration-500"
             />
           </div>
@@ -57,7 +56,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="max-w-316.5 px-6 mx-auto relative w-full">
+      <div className="max-w-316.5 px-6 pt-6 pb-8 mx-auto relative w-full">
         <CarouselSize/>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-7.5 mt-4">
           <Suspense fallback={<WallpaperGridSkeleton />}>
