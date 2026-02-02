@@ -39,10 +39,10 @@ export default function Sidebar() {
           <li className="w-full">
             <DrawerClose asChild>
               <Link
-                href="/curtidos"
+                href="/favoritos"
                 className="w-full py-2 flex h-full border-b justify-center border-gray-500"
               >
-                Curtidos
+                Favoritos
               </Link>
             </DrawerClose>
           </li>

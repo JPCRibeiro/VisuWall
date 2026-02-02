@@ -9,7 +9,7 @@ export default function NavItems() {
   const pathname = usePathname();
   
     const navItems = [
-      { name: "Curtidos", href: "curtidos" },
+      { name: "Favoritos", href: "favoritos" },
       { name: "Upload", href: "upload" },
     ];
   

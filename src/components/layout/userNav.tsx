@@ -33,12 +33,12 @@ export async function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="h-10 px-3 bg-zinc-900 hover:bg-zinc-800 rounded-xl ring-0 outline-none"
+          className="h-10 px-3 bg-zinc-900 hover:bg-zinc-800 rounded-xl ring-0 outline-none flex gap-2"
         >
           <div className="w-7 h-7 rounded-full bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-1">
             <span className="text-white text-xs font-medium">{initial}</span>
           </div>
-          <span className="text-white text-sm max-w-25 truncate">
+          <span className="text-white text-sm max-w-25 truncate font-semibold">
             {username}
           </span>
         </Button>
@@ -56,9 +56,9 @@ export async function UserNav() {
         */}
         <form action={signOut}>
           <button type="submit" className="w-full">
-            <DropdownMenuItem className="text-red-400 focus:bg-zinc-800 focus:text-red-400">
+            <DropdownMenuItem className="text-red-400 focus:bg-zinc-800 focus:text-red-400 cursor-pointer">
               <LogOut className="w-4 h-4 mr-2 text-red-400" />
-              Sign Out
+              Sair
             </DropdownMenuItem>
           </button>
         </form>

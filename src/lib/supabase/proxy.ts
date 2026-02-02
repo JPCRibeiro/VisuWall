@@ -28,12 +28,25 @@ export async function updateSession(request: NextRequest) {
   
   const {
     data: { user },
-  } = await supabase.auth.getUser()
+  } = await supabase.auth.getUser();
 
-  if (request.nextUrl.pathname.startsWith('/upload') && !user) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
+  const path = request.nextUrl.pathname;
+
+  const authRoutes = ['/login', '/cadastro'];
+  const protectedPrefixes = ['/upload', '/favoritos'];
+
+  if (user && authRoutes.includes(path)) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = '/';
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  const isProtectedRoute = protectedPrefixes.some(prefix => path.startsWith(prefix));
+  
+  if (!user && isProtectedRoute) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = '/login';
+    return NextResponse.redirect(redirectUrl);
   }
 
   return supabaseResponse

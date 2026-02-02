@@ -143,7 +143,7 @@ export default function WallpaperPage({ params }: PageProps) {
 function WallpaperDetailsSkeleton() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
-      <Skeleton className="lg:col-span-2 aspect-[2/3] md:aspect-16/10 rounded-xl bg-zinc-800" />
+      <Skeleton className="lg:col-span-2 aspect-2/3 md:aspect-16/10 rounded-xl bg-zinc-800" />
       <div className="space-y-6">
         <Skeleton className="h-40 w-full rounded-xl bg-zinc-800" />
         <Skeleton className="h-20 w-full rounded-xl bg-zinc-800" />

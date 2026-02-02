@@ -1,6 +1,6 @@
 "use client";
 
-import { uploadWallpaper } from "@/app/upload/actions";
+import { uploadWallpaper } from "@/app/(private)/upload/actions";
 import { useCallback, useState } from "react";
 import {
   Select,
