@@ -19,7 +19,7 @@ async function WallpaperList() {
               fill
               quality={100}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover transition-transform duration-500"
+              className="object-cover transition-transform duration-500 select-none"
             />
           </div>
         </Link>
@@ -57,7 +57,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="max-w-316.5 px-6 pt-6 pb-8 mx-auto relative w-full">
+      <div className="max-w-316.5 px-6 pt-6 pb-12 mx-auto relative w-full">
         <CarouselSize/>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-7.5 mt-4">
           <Suspense fallback={<WallpaperGridSkeleton />}>

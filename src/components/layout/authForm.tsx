@@ -41,15 +41,17 @@ export default function AuthForm() {
           <div className="space-y-5">
             {!isLogin && (
               <div>
-                <Label>
+                <Label htmlFor="username">
                   Nome de usuário
                 </Label>
                 <div className="relative mt-2">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                   <Input
+                    id="username"
                     name="username"
                     placeholder="Seu usuário"
                     required
+                    autoComplete="username"
                     className="pl-12 h-12 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
                   />
                 </div>
@@ -57,32 +59,36 @@ export default function AuthForm() {
             )}
 
             <div>
-              <Label className="text-slate-300 text-sm font-medium">
+              <Label htmlFor="email">
                 Email
               </Label>
               <div className="relative mt-2">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <Input
+                  id="email"
                   name="email"
                   type="email"
                   placeholder="seu@email.com"
                   required
+                  autoComplete="email"
                   className="pl-12 h-12 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <Label className="text-slate-300 text-sm font-medium">
+              <Label htmlFor="password">
                 Senha
               </Label>
               <div className="relative mt-2">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <Input
+                  id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   required
+                  autoComplete="current-password"
                   minLength={6}
                   className="pl-12 h-12 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
                 />

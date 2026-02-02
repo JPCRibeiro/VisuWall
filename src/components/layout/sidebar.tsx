@@ -3,7 +3,6 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -34,16 +33,6 @@ export default function Sidebar() {
                 className="w-full py-2 flex h-full border-b justify-center border-gray-500"
               >
                 Início
-              </Link>
-            </DrawerClose>
-          </li>
-          <li className="w-full">
-            <DrawerClose asChild>
-              <Link
-                href="/recentes"
-                className="w-full py-2 flex h-full border-b justify-center border-gray-500"
-              >
-                Recentes
               </Link>
             </DrawerClose>
           </li>

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Visum",
+  title: "VisuWall | Todo  os Tipo de Wallpapers",
   description: "Wallpaper Website",
 };
 
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${geistSans.variable} ${fascinate.variable} ${geistMono.variable} antialiased font-sans`}>
        
           <Header/>
-        <main className="pt-16">{children}</main>
+        <main className="pt-32 sm:pt-16">{children}</main>
       </body>
     </html>
   );
