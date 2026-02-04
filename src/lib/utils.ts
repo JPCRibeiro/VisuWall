@@ -1,5 +1,4 @@
-import { clsx, type ClassValue } from "clsx"
-import { NextRequest, NextResponse } from "next/server";
+import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {

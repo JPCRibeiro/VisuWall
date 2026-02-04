@@ -120,7 +120,7 @@ interface PageProps {
 
 export default function WallpaperPage({ params }: PageProps) {
   return (
-    <div className="bg-[#0a0a0a]">
+    <div className="">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <Link
           href="/"

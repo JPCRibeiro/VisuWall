@@ -1,30 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Fascinate_Inline } from "next/font/google";
+import { Fascinate, Source_Sans_3, Geist } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const fredoka = Fascinate({
+  variable: "--font-fredoka",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
-  title: "VisuWall - Wallpapers",
+  title: "VisuWall - Wallpapers Incríveis",
   description: "Wallpaper Website",
 };
-
-const fascinate = Fascinate_Inline({
-  variable: "--font-fascinate-inline",
-  weight: "400",
-});
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-br">
-      <body className={`${geistSans.variable} ${fascinate.variable} antialiased font-sans`}>
-       
-          <Header/>
-        <main className="pt-32 sm:pt-16">{children}</main>
+      <body className={`${geistSans.variable} ${fredoka.variable} antialiased font-sans min-h-full flex flex-col`}>
+        {children}
       </body>
     </html>
   );

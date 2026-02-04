@@ -9,6 +9,7 @@ export default function NavItems() {
   const pathname = usePathname();
   
     const navItems = [
+      { name: "Wallpapers", href: "wallpapers" },
       { name: "Favoritos", href: "favoritos" },
       { name: "Upload", href: "upload" },
     ];
