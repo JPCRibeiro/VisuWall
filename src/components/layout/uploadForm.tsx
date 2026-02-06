@@ -250,7 +250,7 @@ export function UploadForm() {
         )}
       </div>
 
-      <Button className="font-sans py-5">Enviar</Button>
+      <Button variant={"primary"} className="font-sans py-5 w-full">Enviar</Button>
     </form>
   );
 }

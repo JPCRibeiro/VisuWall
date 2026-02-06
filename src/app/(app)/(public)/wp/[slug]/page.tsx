@@ -1,142 +1,185 @@
+import DownloadCounter from "@/components/layout/downloadCounter";
+import FavoriteButton from "@/components/layout/favoriteButton";
+import { ViewCounter } from "@/components/layout/viewCounter";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getWallpaper } from "@/http/actions";
-import { ArrowLeft, Download, Eye, Heart, Share2 } from "lucide-react";
+import { getWallpaper, incrementDownloadAction } from "@/http/actions";
+import { createClient } from "@/lib/supabase/server";
+import { ArrowLeft, Calendar, Download, Eye, Layers, Star, Tag, TvMinimal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
-
-async function WallpaperDetails({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const wallpaper = await getWallpaper(slug);
-
-  if (!wallpaper) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 text-zinc-400">
-        <p className="text-lg">Wallpaper não encontrado.</p>
-        <Link href="/" className="text-blue-500 hover:underline mt-2">
-          Voltar para o início
-        </Link>
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
-      <div className="lg:col-span-2 space-y-4">
-        <div className="relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800">
-          <Image
-            src={wallpaper.image_url}
-            alt={`Wallpaper ${wallpaper.category}`}
-            width={wallpaper.width}
-            height={wallpaper.height}
-            quality={100}
-          />
-        </div>
-      </div>
-
-      <div className="space-y-6">
-        <div className="bg-zinc-900/50 p-6 rounded-xl border border-zinc-800/50 backdrop-blur-sm">
-          <h1 className="text-2xl font-bold text-white mb-2 capitalize">
-            {wallpaper.category} Wallpaper
-          </h1>
-          <div className="flex items-center gap-4 text-sm text-zinc-400 mb-6">
-            <span className="flex items-center gap-1">
-              <Eye className="w-4 h-4" /> {wallpaper.views}
-            </span>
-            <span className="flex items-center gap-1">
-              <Heart className="w-4 h-4" /> {wallpaper.favorites_count}
-            </span>
-          </div>
-
-          <div className="space-y-3">
-            <Button
-              className="w-full bg-white text-black hover:bg-zinc-200"
-              asChild
-            >
-              <a
-                href={wallpaper.image_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Baixar Original ({wallpaper.width}x{wallpaper.height})
-              </a>
-            </Button>
-
-            <Button
-              variant="outline"
-              className="w-full border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
-            >
-              <Heart className="w-4 h-4 mr-2" />
-              Favoritar
-            </Button>
-
-            <Button
-              variant="ghost"
-              className="w-full text-zinc-400 hover:text-white"
-            >
-              <Share2 className="w-4 h-4 mr-2" />
-              Compartilhar
-            </Button>
-          </div>
-        </div>
-
-        {/* Tags / Info Adicional */}
-        <div className="space-y-4">
-          <h3 className="text-sm font-medium text-zinc-400 uppercase tracking-wider">
-            Detalhes
-          </h3>
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="text-zinc-500">Resolução</div>
-            <div className="text-zinc-300 text-right">
-              {wallpaper.width} x {wallpaper.height}
-            </div>
-
-            <div className="text-zinc-500">Categoria</div>
-            <div className="text-zinc-300 text-right capitalize">
-              {wallpaper.category}
-            </div>
-
-            <div className="text-zinc-500">Upload</div>
-            <div className="text-zinc-300 text-right">
-              {new Date(wallpaper.created_at).toLocaleDateString("pt-BR")}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+async function WallpaperDetails({ params }: PageProps) {
+  const { slug } = await params;
+  const wallpaper = await getWallpaper(slug);
+  const supabase = await createClient();
+
+  if (!wallpaper) {
+    return notFound();
+  }
+
+  console.log(wallpaper);
+
+  const {
+    data: { user: currentUser },
+  } = await supabase.auth.getUser();
+
+  let isFavorited = false;
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("username")
+    .eq("id", wallpaper.user_id)
+    .maybeSingle();
+
+  const username = profile?.username;
+  const initial = username && username[0].toUpperCase();
+
+  if (currentUser) {
+    const { data: existing } = await supabase
+      .from("favorites")
+      .select("user_id")
+      .eq("user_id", currentUser.id)
+      .eq("wallpaper_id", wallpaper.id)
+      .maybeSingle();
+
+    isFavorited = !!existing;
+  }
+
+  return (
+    <>
+      <aside className="fixed left-0 top-16 w-75 h-[calc(100vh-4rem)] bg-backgorund border-r border-zinc-900 shadow-[0_0_10px_rgba(0,0,0,0.4)] overflow-y-auto z-40">
+        <div className="px-6 py-5 border-b border-zinc-800">
+          <Link
+            href="/"
+            className="flex items-center text-zinc-400 hover:text-white transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Voltar
+          </Link>
+        </div>
+
+        <div className="p-6 flex flex-col gap-6">
+          <DownloadCounter wallpaperId={wallpaper.id} wallpaperIMGUrl={wallpaper.image_url}/>
+            <FavoriteButton
+              wallpaperId={wallpaper.id}
+              userId={currentUser?.id}
+              isFavorited={isFavorited}
+            />
+          <div>
+            <h3 className="text-sm text-zinc-400 mb-1 uppercase tracking-wide font-semibold">
+              <Layers size={18} className="text-[#03e3b8] inline mr-1" />
+              Categoria
+            </h3>
+            <p className="text-white font-medium capitalize flex items-center gap-2">
+              {wallpaper.category || "Não definida"}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-sm text-zinc-400 mb-2 uppercase tracking-wide font-semibold">
+              <Tag className="inline mr-1 text-[#03e3b8]" size={18} />
+              Tags
+            </h3>
+            {wallpaper.tags?.length ? (
+              <div className="flex flex-wrap gap-2">
+                {wallpaper.tags.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-md border border-zinc-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="text-zinc-400 text-sm">Sem tags</p>
+            )}
+          </div>
+
+          <div>
+            <h3 className="text-sm text-zinc-400 mb-2 uppercase tracking-wide font-semibold flex items-center gap-2">
+              <TvMinimal size={18} color="#03e3b8" />
+              Resolução
+            </h3>
+            <p className="text-white font-medium">
+              {wallpaper.width} × {wallpaper.height}
+            </p>
+          </div>
+
+          <div>
+            <ul className="space-y-2 text-sm text-zinc-300">
+              <li className="flex items-center gap-2">
+                <Eye size={15} className="text-[#03e3b8]" />{" "}
+                {wallpaper.views ?? 0} visualizações
+                <ViewCounter wallpaperId={wallpaper.id}/>
+              </li>
+              <li className="flex items-center gap-2">
+                <Download size={15} className="text-[#03e3b8]" />{" "}
+                {wallpaper.downloads ?? 0} downloads
+              </li>
+              <li className="flex items-center gap-2">
+                <Star size={15} className="text-[#03e3b8]" />{" "}
+                {wallpaper.favorites_count ?? 0} favoritos
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm text-zinc-400 mb-2 uppercase tracking-wide font-semibold flex items-center">
+              <Calendar size={15} className="text-[#03e3b8] inline mr-1 " />
+              Enviado em
+            </h3>
+            <p className="text-white font-medium flex items-center gap-2">
+              {new Date(wallpaper.created_at).toLocaleDateString("pt-BR")}
+            </p>
+          </div>
+
+          <div className="text-zinc-400 flex gap-2 items-center">
+            Enviado por:{" "}
+            <div className="w-7 h-7 rounded-full bg-linear-to-br from-[#03e3b8] to-[#3AEDE3] flex items-center justify-center mr-1">
+              <span className="text-background text-sm font-semibold">
+                {initial}
+              </span>
+            </div>
+            <span className="text-white font-semibold">
+              {profile?.username || "Usuário desconhecido"}
+            </span>
+          </div>
+        </div>
+      </aside>
+      <div className="relative min-h-full ml-75">
+        <section className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src={wallpaper.image_url}
+              alt={`Wallpaper ${wallpaper.category}`}
+              width={wallpaper.width}
+              height={wallpaper.height}
+              quality={100}
+              loading="eager"
+              className="max-w-[95%] max-h-[95%] m-auto absolute inset-0 block object-contain"
+            />
+          </div>
+        </section>
+      </div>
+    </>
+  );
+}
+
 export default function WallpaperPage({ params }: PageProps) {
   return (
-    <div className="">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <Link
-          href="/"
-          className="flex items-center text-zinc-400 hover:text-white w-fit"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Voltar
-        </Link>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <Suspense fallback={<WallpaperDetailsSkeleton />}>
-          <WallpaperDetails params={params} />
-        </Suspense>
-      </div>
-    </div>
+    <>
+      <Suspense fallback={<WallpaperDetailsSkeleton />}>
+        <WallpaperDetails params={params} />
+      </Suspense>
+    </>
   );
 }
 

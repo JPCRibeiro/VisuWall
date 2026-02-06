@@ -11,11 +11,11 @@ export default function WallpapersPage() {
           Wallpapers
         </h3>
         <p className="text-white font-semibold text-[16px]">
-          Todos os wallpapers enviados pela comunidade!
+          Todos os wallpapers enviados pela comunidade
         </p>
       </div>
       <div className="relative mx-auto py-5 px-5">
-          <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-[repeat(auto-fit,350px)] justify-center gap-4">
             <Suspense fallback={<WallpaperGridSkeleton />}>
               <WallpaperList />
             </Suspense>

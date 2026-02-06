@@ -41,7 +41,7 @@ export default function HeaderShell({ userNavSlot }: HeaderShellProps) {
     return () => window.removeEventListener("scroll", updateHeaderStyle);
   }, [isHome]);
 
-  const baseClasses = "sticky top-0 z-50 transition-all duration-300 border-b border-transparent";
+  const baseClasses = "fixed w-full top-0 z-50 transition-all duration-300 border-b border-transparent";
 
   return (
     <header ref={headerRef} className={`${baseClasses} ${!isHome ? "is-scrolled" : ""}`}>
@@ -52,7 +52,7 @@ export default function HeaderShell({ userNavSlot }: HeaderShellProps) {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-[22px] md:text-[28px] text-white select-none font-extrabold font-fredoka">
+              <span className="text-[28px] text-white select-none font-extrabold font-fredoka">
                 VisuWall
               </span>
             </Link>

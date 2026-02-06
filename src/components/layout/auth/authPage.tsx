@@ -33,7 +33,7 @@ export default function AuthPage() {
           </Button>
         </div>
       </header>
-      <div className="max-w-md relative z-10 flex flex-col flex-1 justify-center w-full m-auto">
+      <div className="max-w-md relative z-10 flex flex-col flex-1 justify-center w-full m-auto p-4">
         <div className="pb-6">
         <h1 className="text-4xl font-bold text-white tracking-tight">
           {isLogin ? "Fazer Login" : "Criar conta"}

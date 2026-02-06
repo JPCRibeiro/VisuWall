@@ -5,7 +5,9 @@ export default function AppLayout({ children }: Readonly<{ children: React.React
   return (
     <>
       <Header />
-      {children}
+      <main className="sm:border-t-65 border-t-129 min-h-full border-[rgb(19_19_19/75%)]"> 
+        {children}
+      </main>
     </>
   );
 }

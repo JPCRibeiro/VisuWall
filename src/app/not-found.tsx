@@ -1,14 +1,12 @@
 import Header from '@/components/layout/header/header';
 import { Button } from '@/components/ui/button';
-import { Angry, Frown, ThumbsDown } from 'lucide-react';
 import Link from 'next/link';
 
 export default function NotFound() {
   return (
     <>
     <Header/>
-    <div className="flex w-full items-center justify-center min-h-[calc(100vh-128px)] sm:min-h-[calc(100vh-64px)] text-white flex-col p-2.5 text-center">
-      
+    <div className="flex w-full items-center justify-center min-h-[calc(100svh-129px)] sm:min-h-[calc(100svh-65px)] text-white flex-col p-2.5 text-center">
       <p className="mb-2.5">404</p>
       <h2 className="text-white text-[36px] font-medium">
         Oops! Página não encontrada
