@@ -1,4 +1,4 @@
-import AuthPage from "@/components/layout/auth/authPage";
+import AuthPage from "@/app/(auth)/authPage";
 
 export default function LoginUpPage() {
   return (

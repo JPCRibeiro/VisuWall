@@ -12,9 +12,9 @@ import {
 import { Label } from "@/components/ui/label";
 import { Check, ImageIcon, Plus, UploadIcon, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { cn } from "@/lib/utils";
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 
 const categories: { value: string; label: string }[] = [
   { value: "general", label: "Geral" },
@@ -190,15 +190,15 @@ export function UploadForm() {
       </div>
 
       <div className="flex flex-col space-y-3">
-        <Label className="text-zinc-400">Categoria *</Label>
+        <Label className="text-zinc-400">Categoria</Label>
         <Select
           value={formData.category}
           onValueChange={(value) =>
             setFormData((prev) => ({ ...prev, category: value }))
           }
         >
-          <SelectTrigger className="bg-zinc-900/80 border-zinc-800 text-white h-12 rounded-xl">
-            <SelectValue placeholder="Selecione uma categoria" />
+          <SelectTrigger className="bg-zinc-800/50 border-zinc-700/50 text-white h-12 rounded-md">
+            <SelectValue placeholder="Selecione uma categoria"/>
           </SelectTrigger>
           <SelectContent className="bg-zinc-900 border-zinc-800">
             {categories.map((cat) => (
@@ -223,8 +223,8 @@ export function UploadForm() {
             onKeyPress={(e) =>
               e.key === "Enter" && (e.preventDefault(), addTag())
             }
+            className="pl-4 bg-zinc-800/50 border-zinc-700/50 text-zinc-100 placeholder:text-zinc-500 focus:border-[#03e3b8] h-12"
             placeholder="Adicionar tags"
-            className="bg-zinc-900/80 border-zinc-800 text-white h-12 rounded-xl focus:ring-cyan-500 focus:border-cyan-500"
           />
           <button
             type="button"

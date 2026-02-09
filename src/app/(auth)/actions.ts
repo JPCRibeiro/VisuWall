@@ -1,47 +1,41 @@
 "use server"
 
+import { LoginData, RegisterData } from "@/lib/schemas/auth";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function signUp(formData: FormData) {
+export async function signUp(data: RegisterData) {
   const supabase = await createClient();
 
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const username = formData.get('username') as string;
-
   const { error } = await supabase.auth.signUp({
-    email,
-    password,
+    email: data.email,
+    password: data.password,
     options: {
       data: {
-        username: username, 
+        username: data.username,
       },
     },
   });
 
   if (error) {
-    console.error(error); 
-    redirect('/error');
+    return { success: false, message: error.message };
   }
 
   revalidatePath('/', 'layout');
   redirect('/');
 }
 
-export async function signIn(formData: FormData) {
+export async function signIn(data: LoginData) {
   const supabase = await createClient();
 
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string
-  };
-
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { error } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
+  });
 
   if (error) {
-    redirect('/error');
+    return { success: false, message: error.message };
   }
 
   revalidatePath('/', 'layout');

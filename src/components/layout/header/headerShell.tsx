@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Suspense, useEffect, useRef } from "react";
 import Link from "next/link";
-import NavItems from "../navItems";
+import NavItems from "./navItems";
 import SearchBar from "../searchBar";
 import Sidebar from "../sidebar";
 import { cn } from "@/lib/utils";

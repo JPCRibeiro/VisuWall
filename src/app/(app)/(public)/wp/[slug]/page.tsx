@@ -24,8 +24,6 @@ async function WallpaperDetails({ params }: PageProps) {
     return notFound();
   }
 
-  console.log(wallpaper);
-
   const {
     data: { user: currentUser },
   } = await supabase.auth.getUser();
